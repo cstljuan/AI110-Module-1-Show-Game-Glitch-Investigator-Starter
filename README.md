@@ -25,9 +25,18 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [x] Describe the game's purpose. — A number-guessing game where the player picks a difficulty, gets a range and limited attempts, and uses "Too High / Too Low" hints to find the secret number.
+- [x] Detail which bugs you found.
+  - Reversed hints: `check_guess` said "Go HIGHER!" when the guess was too high.
+  - Hard difficulty (1–50) was easier than Normal (1–100).
+  - New Game button never reset `status`, so the game stayed stuck on "lost" or "won".
+  - String-conversion hack: on even attempts, `secret` was cast to `str`, breaking numeric comparison (`"7" > "50"` in Python is `True`).
+- [x] Explain what fixes you applied.
+  - Moved all game logic into `logic_utils.py`; `app.py` now imports from it.
+  - Fixed `check_guess` to return only the outcome string and corrected the hint direction.
+  - Changed Hard range to `1–150`.
+  - Fixed New Game to reset `status`, `history`, `score`, and use the current difficulty range.
+  - Removed the string-conversion block entirely.
 
 ## 📸 Demo Walkthrough
 
@@ -44,9 +53,19 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 ## 🧪 Test Results
 
 ```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
+pytest tests/ -v
+============================= test session starts =============================
+tests/test_game_logic.py::test_winning_guess PASSED
+tests/test_game_logic.py::test_guess_too_high PASSED
+tests/test_game_logic.py::test_guess_too_low PASSED
+tests/test_game_logic.py::test_hard_difficulty_harder_than_normal PASSED
+tests/test_game_logic.py::test_no_string_comparison_trick PASSED
+tests/test_game_logic.py::test_update_score_win_first_attempt PASSED
+tests/test_game_logic.py::test_update_score_wrong_guess_never_rewards PASSED
+tests/test_game_logic.py::test_parse_guess_valid PASSED
+tests/test_game_logic.py::test_parse_guess_empty PASSED
+tests/test_game_logic.py::test_parse_guess_non_number PASSED
+============================== 10 passed in 0.09s =============================
 ```
 
 ## 🚀 Stretch Features
