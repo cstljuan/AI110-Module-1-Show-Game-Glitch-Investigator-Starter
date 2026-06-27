@@ -227,11 +227,29 @@ footer                 { display: none !important; }
     list-style: none !important;
 }
 
-/* Kill browser default marker and any leaked Streamlit internal label spans */
+/* Remove browser default marker */
 [data-testid="stExpander"] summary::-webkit-details-marker { display: none !important; }
 [data-testid="stExpander"] summary::marker { content: none !important; }
-/* Force SVG chevron color inside summary */
-[data-testid="stExpander"] summary svg { color: var(--muted) !important; }
+
+/* Hide Streamlit's built-in expand icon — it renders as glyph artifact
+   when Chakra Petch font is applied globally via * selector */
+[data-testid="stExpander"] summary > *:first-child { display: none !important; }
+
+/* Inject clean arrow using system-ui (guaranteed to have the glyph) */
+[data-testid="stExpander"] summary::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 8px;
+    font-family: system-ui, -apple-system, sans-serif !important;
+    color: var(--muted);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+[data-testid="stExpander"] details[open] > summary::before {
+    transform: rotate(90deg);
+}
 
 /* ── Divider ───────────────────────────────────────── */
 hr {
