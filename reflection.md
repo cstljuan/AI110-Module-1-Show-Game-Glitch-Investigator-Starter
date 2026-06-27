@@ -57,20 +57,15 @@ Document at least 3 bugs you found. Add rows as needed.
 ## 4. What did you learn about Streamlit and state?
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
-  - 
+  - Every time you interact with anything in a Streamlit app — click a button, type in a box — Streamlit re-runs the entire Python script from the very top. That means any normal variable gets wiped and reset to its starting value on every click. `st.session_state` is a special dictionary that survives these reruns, so values like the secret number, attempt count, and score stay intact between interactions. Think of it like a notepad that doesn't get erased when the page refreshes — the game state lives there instead of in regular variables.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects? This could be a testing habit, a prompting strategy, or a way you used Git.
-  - 
+  - Writing a failing test before applying the fix. With `test_no_string_comparison_trick`, I wrote the test knowing it would fail against the old buggy code, then fixed the code and watched the test turn green. That sequence — red then green — gives actual confidence the fix worked, instead of just hoping it did.
 - What is one thing you would do differently next time you work with AI on a coding task?
-  - 
+  - I'd push back on AI explanations earlier. When Claude first described the string-conversion bug as "the secret resets," I accepted the framing too quickly. Next time I'll ask the AI to show me the exact line causing the bug and trace through it step by step before agreeing with its diagnosis.
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
-  - 
-
-prompt or something: 
-please work inside the project we're working on "C:\JUAN\Dev\CodePath\AI101\Unit 1\ai110-module1show-gameglitchinvestigator-starter>"
-
-Let's work on the bugs that I typed out in "reflection.md" when trying out the game. let's work on those, before implementing anything else. Before fixing code, explain to me why it's broken and how you would fix it, then go on from there. 
+  - AI-generated code can look completely reasonable at a glance and still contain subtle intentional-looking traps, like the even-attempt string cast that made the game nearly unwinnable. I now treat AI code the same way I'd treat any unfamiliar code — I read every line, trace edge cases, and write tests before trusting it.

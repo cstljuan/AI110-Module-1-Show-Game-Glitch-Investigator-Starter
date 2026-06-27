@@ -40,15 +40,13 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📸 Demo Walkthrough
 
-Describe your fixed game in numbered steps so a reader can follow along without watching a video:
-
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
-
-**Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
+1. Open the app (`streamlit run app.py`). The sidebar shows "Normal" difficulty selected by default — range 1–100, 8 attempts allowed.
+2. Type `40` in the guess field and click **Submit Guess**. The hint reads "📈 Go HIGHER!" — the secret is above 40.
+3. Type `70` and submit. The hint reads "📉 Go LOWER!" — the secret is between 40 and 70. Score drops by 5 for each wrong guess.
+4. Type `55` → "📉 Go LOWER!" — narrowed to 40–55.
+5. Type `48` → "📈 Go HIGHER!" — narrowed to 48–55.
+6. Type `52` → "🎉 Correct!" Balloons appear. Final score is shown based on how many attempts it took.
+7. Click **New Game**. The game fully resets — attempts, score, history, and status all clear. The sidebar now controls a fresh secret in the correct difficulty range.
 
 ## 🧪 Test Results
 
